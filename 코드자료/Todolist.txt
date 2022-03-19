@@ -1,0 +1,21 @@
+import React from 'react';
+import styled from 'styled-components';
+import { mockTodos } from '../data/mockTodas';
+import TodoItem from './TodoItem';
+
+const TodoList = () => {
+  return (
+    <List>
+      {mockTodos.map(todo => <TodoItem id={todo.id} text={todo.text} x={todo.done}/>) }
+    </List>
+  );
+}
+
+const List = styled.div`
+    padding: 20px 0 48px;
+    flex: 1;
+
+
+`
+
+export default TodoList;

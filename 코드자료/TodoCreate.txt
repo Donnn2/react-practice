@@ -1,0 +1,121 @@
+import React, { useContext } from 'react';
+import styled, {css} from 'styled-components';
+import { MdAdd } from 'react-icons/md';
+import { useState } from 'react';
+import { TodoDispatchContext } from '../context/TodoContext';
+import { v4 as uuidv4 } from 'uuid';
+
+const TodoCreate = () => {
+
+  const dispatch = useContext(TodoDispatchContext)
+
+  const [input, setInput] = useState("")
+
+  const onChange = (e) =>{
+    setInput(e.target.value)
+  }
+
+  const onSubmit = (e) =>{
+    e.preventDefault();
+    dispatch({
+      type:'CREATE',
+      todo:{
+        id: uuidv4(),
+        text: input,
+        done: false
+      }
+    })
+
+    setInput("")
+    setOpen(false)
+  }
+
+  const [open, setOpen] = useState(false);
+
+  const clicking = () =>{
+    setOpen(!open)
+  }
+
+   
+  return (
+    <>
+      {open &&(  
+        <InputContainer>
+            <InputForm onSubmit={onSubmit} >
+              <Input
+                autoFocus
+                placeholder = "할 일을 입력 후, Enter를 누르세요"
+                onChange = {onChange} ></Input>
+            </InputForm>
+          </InputContainer>
+      )}
+
+      <CircleButton open={open} onClick={clicking}>
+        <MdAdd />
+      </CircleButton>
+      
+    </>  
+  );
+}
+
+const CircleButton = styled.div`
+  margin: 0 auto;
+  display: flex;
+  border: 0px solid green;
+  border-radius: 50%;
+  background: green;
+  width: 80px;
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+  transform: translate(0,50%);
+  font-size: 60px;
+  color: white;
+  &:hover{
+    background: #63e6be;
+  }
+  &:active{
+    background: #20c997;
+  }
+
+  ${props => props.open && css`
+    background: #ff6b6b;
+    &:hover{
+      background: #ff8787;
+    }
+    &:active{
+      background: #fa5252;
+    }
+    transform: translate(0, 50%) rotate(45deg);
+  `}
+
+  transition: 0.125s all ease-in;
+`
+const InputContainer = styled.div`
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;  
+`
+const InputForm = styled.form`
+  background: #f8f9fa;
+  padding: 32px 32px 72px 32px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  border-top: 1px solid #e9ecef;
+
+`
+
+const Input = styled.input`
+  padding: 12px;
+  background: white;
+  width: 100%;
+  border: 1px solid #dee2e6;
+  outline: none;
+  font-size: 18px;
+  box-sizing: border-box;
+  border-radius: 4px;
+`
+
+
+export default TodoCreate;

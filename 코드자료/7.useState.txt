@@ -1,0 +1,24 @@
+import React, { useState } from "react"
+
+const Counter = () => {
+
+  const [ber,setNumber] = useState(32); //useState값,함수 = (실질적인수)
+
+  const onIncrease = () =>{
+    setNumber(preNumber => preNumber+1); // 파라미터를 함수로 표현(최적화)
+  }
+
+  const onDecrease = () =>{
+    setNumber(preNumber => preNumber-1);
+  }
+
+  return (
+    <div>
+      <h1>{ber}</h1>
+      <button onClick={onIncrease}>+1</button>
+      <button onClick={onDecrease}>-1</button>
+    </div>
+  );
+}
+
+export default Counter;

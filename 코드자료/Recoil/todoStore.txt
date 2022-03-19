@@ -1,0 +1,37 @@
+import {atom, selector} from 'recoil'
+
+export const todoListstate = atom({
+  key: 'todoListState',
+  default: [                             //default 초기값
+    {
+      id: 1,
+      text: '프로젝트 생성하기',
+      done: true
+    },
+  ]
+})
+
+export const todoListFilter = atom({
+  key: 'todoListFilter',
+  default: 'Show All'
+})
+
+export const filterdList = selector({
+  key: 'filteredList',
+  get: ({get}) => {
+    const list = get(todoListstate)
+    const filter = get(todoListFilter)
+
+    switch(filter){
+      case 'Show Complete' :
+      return list.filter(todo => todo.done)
+
+      case 'Show Uncomplete' :
+      return list.filter(todo => !todo.done)
+
+      default :
+        return list;
+    }  
+  }
+
+})

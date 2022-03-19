@@ -1,0 +1,40 @@
+import React from 'react';
+import styled from 'styled-components';
+
+const TodoHeader = () => {
+  return (
+    <Header>
+      <h1 class = "date">2021년 11월 20일</h1>
+      <div class = "day">토요일</div>
+      <div class = "todo">남은할일</div>
+    </Header>
+  );
+}
+
+const Header = styled.div`
+    padding: 48px 0 24px;
+    border-bottom: 1px solid #343a40;
+
+    .date{
+        margin: 0;
+        font-size: 36px;
+        color: #343a40;
+        margin-bottom: 4px;
+    }
+
+    .day{
+        font-size: 21px;
+        color: #868296;
+        margin-bottom: 40px;
+    }
+
+    .todo{
+        font-size: 18px;
+        color: #20c997;
+    }
+
+`
+
+
+
+export default TodoHeader;
